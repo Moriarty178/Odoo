@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pi_import_wizard_form" model="ir.ui.view">
+        <field name="name">pi.import.wizard.form</field>
+        <field name="model">pi.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Import Pi Data">
+                <sheet>
+                    <group>
+                        <field name="file"/>
+                        <field name="filename"/>
+                        <field name="data_preview" widget="text"/>
+<!--                        <field name="data_preview" widget="monospace" readonly="1"/>-->
+                    </group>
+                    <footer>
+                        <button name="action_confirm_import" string="Tiếp tục" type="object" class="oe_highlight"/>
+                        <button string="Hủy" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

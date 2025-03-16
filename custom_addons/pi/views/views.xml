@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="pi.list">
+      <field name="name">pi list</field>
+      <field name="model">pi.pi</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="pi.action_window">
+      <field name="name">pi window</field>
+      <field name="res_model">pi.pi</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="pi.action_server">
+      <field name="name">pi server</field>
+      <field name="model_id" ref="model_pi_pi"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="pi" id="pi.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="pi.menu_1" parent="pi.menu_root"/>
+    <menuitem name="Menu 2" id="pi.menu_2" parent="pi.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="pi.menu_1_list" parent="pi.menu_1"
+              action="pi.action_window"/>
+    <menuitem name="Server to list" id="pi" parent="pi.menu_2"
+              action="pi.action_server"/>
+-->
+  </data>
+</odoo>

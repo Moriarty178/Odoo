@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Định nghĩa view: Tree View - xem danh sách, tương tự bảng trong sql -->
+    <record id="view_pi_tree" model="ir.ui.view">
+        <field name="name">pi.model.tree</field>
+        <field name="model">pi.model</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="test"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Định nghĩa view: Search View - thanh tìm kiếm   -->
+    <record id="view_pi_search" model="ir.ui.view">
+        <field name="name">pi.model.search</field>
+        <field name="model">pi.model</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="test"/>   <!-- widget="selection" - field selection, trước booleans thì không cần khai báo type, nếu khai báo thì type = "boolean"    -->
+            </search>
+        </field>
+    </record>
+
+    <!-- Định nghĩa view: Form View - xem chi tiết khi click vào một bản ghi -->
+    <record id="view_pi_form" model="ir.ui.view">
+        <field name="name">pi.model.form</field>
+        <field name="model">pi.model</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="test"/>
+                        <field name="task_ids"/>
+                    </group>
+                    <footer>
+                        <!-- Type object call func python  -->
+                        <button name="action_save_pi" string="Lưu" type="object" class="oe_highlight"/>
+                        <button string="Hủy" special="cancel"/>
+                        <!-- Type button call func js  -->
+                        <button name="custom_js_action" string="Gọi JS" type="button"
+                                class="btn btn-primary custom-js-button"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Định nghĩa view import -->
+<!--    <record id="view_pi_import_wizard_form" model="ir.ui.view">-->
+<!--        <field name="name">pi.import.wizard.form</field>-->
+<!--        <field name="model">pi.import.wizard</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <form string="Import Pi Data">-->
+<!--                <sheet>-->
+<!--                    <group>-->
+<!--                        <field name="file"/>-->
+<!--                        <field name="filename"/>-->
+<!--&lt;!&ndash;                        <field name="data_preview" readonly="1"/>&ndash;&gt;-->
+<!--                        <field name="data_preview" widget="monospace" readonly="1"/>-->
+<!--                    </group>-->
+<!--                    <footer>-->
+<!--                        <button name="action_process_file" string="Tiếp tục" type="object" class="oe_highlight"/>-->
+<!--                        <button string="Hủy" class="btn-secondary" special="cancel"/>-->
+<!--                    </footer>-->
+<!--                </sheet>-->
+<!--            </form>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <!-- Định nghĩa Action Import -->
+<!--    <record id="action_pi_import_wizard" model="ir.actions.act_window">-->
+<!--        <field name="name">Import Pi Data</field>-->
+<!--        <field name="res_model">pi.import.wizard</field>-->
+<!--        <field name="view_mode">form</field>-->
+<!--        <field name="target">new</field>-->
+<!--    </record>-->
+
+
+    <!-- Định nghĩa Action: mở màn hình danh sách -->
+    <record id="action_pi_model" model="ir.actions.act_window">
+        <field name="name">Pi Model</field>
+        <field name="res_model">pi.model</field>
+        <field name="view_mode">tree,form</field>
+        <!-- Dùng context trong action: khi vào danh sách odoo lọc records có test = True       -->
+        <field name="view_id" ref="view_pi_tree"/> <!-- dùng 'view_id' để chỉ đinh, nếu không odoo mặc định quét all view có res_model = 'pi.model' và chọn một cái, thường là form view đầu tiên -->
+        <field name="search_view_id" ref="view_pi_search"/>
+        <field name="context">{'search_default_test': 'true'}</field>
+    </record>
+
+    <!-- Định nghĩa action Customer Screen: để liên kết view đã định nghĩa ở trên với màn hình hiển thị -->
+    <record id="action_pi_custom_screen" model="ir.actions.client">
+        <field name="name">Pi Custom Screen</field>  <!-- tên của action -->
+        <field name="tag">pi_custom_screen</field>    <!-- link vs file js đã đăng ký -->
+    </record>
+
+    <!-- Hiển thị lên menu = cách dùng thẻ menuitem   -->
+    <menuitem id="menu_pi_root" name="Pi Module"/>
+
+    <!-- list Menu con  -->
+    <menuitem id="menu_pi_model" name="Quản Lý Pi" parent="menu_pi_root" action="action_pi_model" sequence="1"/>
+    <menuitem id="menu_pi_custom_screen" name="Pi Custom" parent="menu_pi_root" action="action_pi_custom_screen" sequence="2"/>
+    <menuitem id="menu_pi_import" name="Import Pi Data" parent="menu_pi_root" action="action_pi_import_wizard" sequence="3"/>
+
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template xml:space="preserve" id="pi.PiCustomScreen" name="Pi Custom Screen">
+    <t t-name="pi.PiCustomScreen">
+        <div class="o_structure">
+            <h2>Welcome to Custom Screen</h2>
+            <p t-esc="state.message"/>
+            <button t-on-click="showAlert" class="btn btn-primary">Click Me!</button>
+        </div>
+    </t>
+</template>

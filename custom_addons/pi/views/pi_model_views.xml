@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pi_model_form" model="ir.ui.view">
+        <field name="name">pi.model.form.extend</field> <!-- Đặt tên khác: pi.mode.[type].extend để tránh odoo gọi nhầm -->
+        <field name="model">pi.model</field>
+        <field name="inherit_id" ref="pi.view_pi_form"/> <!-- Kế thừa form gốc -->
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/group" position="inside">  <!-- inside: trên form, after: sau form, before: trên form, outside: ngoại form, replace: thay the form, remove: xoa form -->
+                <field name="new_field"/>  <!-- Thêm trường mới vào form -->
+            </xpath>
+        </field>
+    </record>
+</odoo>
