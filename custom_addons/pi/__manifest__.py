@@ -22,10 +22,13 @@ Long description of module's purpose
 
     # always loaded
     'data': [
+        # 'data/module_category_pi.xml',
         'security/ir.model.access.csv',
+        # 'security/security.xml',
         'views/pi_model_views.xml',
         'views/pi_import_wizard_views.xml',
         'views/pi_import_action.xml',
+        'views/product_view.xml',
         'views/pi_views.xml',
     ],
     'assets': {

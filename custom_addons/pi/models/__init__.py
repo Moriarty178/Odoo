@@ -5,3 +5,5 @@ from . import pi_model
 from . import pi_task
 from . import pi_model_extend
 from . import pi_import_wizard
+from . import product
+from . import category

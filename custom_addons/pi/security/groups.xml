@@ -1,0 +1,10 @@
+<!--<?xml version="1.0" encoding="utf-8" ?>-->
+<!--<record id="group_sales_manager" model="res.groups">-->
+<!--    <field name="name">Sale Manager</field>-->
+<!--    <field name="category_id" ref="module_category_pi"/>-->
+<!--</record>-->
+
+
+<!--&lt;!&ndash;Khi định nghĩa một group mới ta cần:&ndash;&gt;-->
+<!--&lt;!&ndash; - Khai báo group trong file /security/groups.xml&ndash;&gt;-->
+<!--&lt;!&ndash; - Định nghĩa record dùng trong phần ref="..." trong /data/ trong một file xml&ndash;&gt;-->

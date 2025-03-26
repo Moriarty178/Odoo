@@ -13,8 +13,8 @@
 <!--                        <field name="data_preview" widget="monospace" readonly="1"/>-->
                     </group>
                     <footer>
-                        <button name="action_confirm_import" string="Tiếp tục" type="object" class="oe_highlight"/>
-                        <button string="Hủy" class="btn-secondary" special="cancel"/>
+                        <button name="action_confirm_import" string="Save to Database" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
                     </footer>
                 </sheet>
             </form>

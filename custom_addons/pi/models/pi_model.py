@@ -2,7 +2,10 @@ from odoo import models, fields, api, exceptions, _
 from odoo.exceptions import ValidationError
 from datetime import datetime
 
-from odoo.release import description
+import base64
+import io
+from openpyxl import Workbook
+from openpyxl.worksheet.datavalidation import DataValidation
 
 
 class PiModel(models.Model):
@@ -97,3 +100,51 @@ class PiModel(models.Model):
                     f"Giá trị '{test}' trong cột 'Action' không hợp lệ! Chỉ chấp nhận: True hoặc False.")
 
         return super().load(fields, data)
+
+    @api.model
+    def get_import_templates(self):
+        """Tạo file Excel template có dropdown list, lưu thành attachment và trả về danh sách template"""
+
+        output = io.BytesIO()
+        workbook = Workbook()
+        sheet = workbook.active
+        sheet.title = "Import Template"
+
+        # 🔥 Tạo tiêu đề cột
+        headers = ["Name", "Description", "Test"]
+        sheet.append(headers)
+
+        # 📝 Ghi sẵn giá trị vào cột C để tránh lỗi dropdown không hiển thị
+        for row in range(2, 101):
+            sheet[f"C{row}"] = ""  # Để ô trống nhưng vẫn được định dạng
+
+        # 🔥 Tạo dropdown list cho cột "Test"
+        dv = DataValidation(type="list", formula1='"true,false"', showDropDown=True)
+        sheet.add_data_validation(dv)
+
+        # 🔥 Áp dụng dropdown vào cột C (Test)
+        for row in range(2, 101):
+            dv.add(sheet[f"C{row}"])  # Đảm bảo từng ô được gán dropdown
+
+        # 📂 Lưu file vào buffer
+        workbook.save(output)
+        output.seek(0)
+
+        # 📌 Chuyển dữ liệu file sang base64
+        template_data = base64.b64encode(output.read())
+
+        # 🔥 Tạo attachment trong Odoo
+        attachment = self.env['ir.attachment'].create({
+            'name': "Pi_Model_Template.xlsx",
+            'datas': template_data,
+            'res_model': 'pi.model',
+            'res_id': 0,  # Không gán vào bản ghi cụ thể
+            'type': 'binary',
+            'mimetype': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        })
+
+        # 🔥 Trả về danh sách template để Odoo nhận diện & hiển thị nút Download
+        return [{
+            'label': "Pi_Model_Template.xlsx",
+            'template': f'/web/content/{attachment.id}?download=true'
+        }]

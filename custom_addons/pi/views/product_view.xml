@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--======== PRODUCT VIEW =======-->
+        <!-- Tree view -->
+        <record id="product_tree_view" model="ir.ui.view">
+            <field name="name">pi.product.tree</field>
+            <field name="model">pi.product</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="price"/>
+                    <field name="discount_price"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form view -->
+        <record id="product_form_view" model="ir.ui.view">
+            <field name="name">pi.product.form</field>
+            <field name="model">pi.product</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="price"/>
+                            <field name="discount_price"/>
+                            <field name="category_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Search view -->
+        <record id="product_search_view" model="ir.ui.view">
+            <field name="name">pi.product.search</field>
+            <field name="model">pi.product</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Product Name"/>
+                    <filter name="search_acer" string="Acer Products" domain="[('name', 'ilike', 'acer')]"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="product_act_window" model="ir.actions.act_window">
+            <field name="name">Product</field>
+            <field name="res_model">pi.product</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="product_search_view"/>
+            <field name="context">{'search_default_search_acer': 1}</field>
+        </record>
+        <!--======== END PRODUCT VIEW =======-->
+
+
+
+        <!--======== CATEGORY VIEW =======-->
+        <!--Tree view-->
+        <record id="category_tree_view" model="ir.ui.view">
+            <field name="name">pi.category.tree</field>
+            <field name="model">pi.category</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="category_form_view" model="ir.ui.view">
+            <field name="name">pi.category.form</field>
+            <field name="model">pi.category</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="products"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- Action for Category-->
+        <record id ="category_act_window" model="ir.actions.act_window">
+            <field name="name">Category</field>
+            <field name="res_model">pi.category</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!--======== END PRODUCT VIEW =======-->
+
+        <!-- Menu -->
+        <menuitem id="menu_product_model" name="Product" parent="menu_pi_root" action="product_act_window"/>
+        <menuitem id="menu_category_model" name="Category" parent="menu_pi_root" action="category_act_window"/>
+
+    </data>
+</odoo>
